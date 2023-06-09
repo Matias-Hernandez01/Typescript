@@ -1,0 +1,22 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matias-Hernandez01/Typescript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matias-Hernandez01/Typescript/issues"
+  },
+  "homepage": "https://github.com/Matias-Hernandez01/Typescript#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

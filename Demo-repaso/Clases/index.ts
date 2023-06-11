@@ -21,7 +21,7 @@ class Persona {
   }
 }
 
-const principal = () => {
+const main = () => {
   const matias = new Persona();
   matias.nombre = 'matias';
   matias.edad = new Date(2004, 9, 27);
@@ -29,4 +29,4 @@ const principal = () => {
   console.log(matias.getName());
 };
 
-principal();
+main();

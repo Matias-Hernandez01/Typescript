@@ -22,11 +22,9 @@ class Persona {
 }
 
 const main = () => {
-  const matias = new Persona();
-  matias.nombre = 'matias';
-  matias.edad = new Date(2004, 9, 27);
-  console.log(matias.getEdad());
-  console.log(matias.getName());
+  const date = new Date();
+  const newDate = date;
+  console.log(date.toISOString().split('T')[0]);
 };
 
 main();

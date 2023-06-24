@@ -35,9 +35,10 @@ const CloudinaryComponent: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, justifyContent: 'center', width: 300}}>
-      <Image source={{uri: photo}} style={styles.fotito} />
-      <View style={{alignItems: 'center', width: 300}}>
+    <SafeAreaView
+      style={{flex: 1, justifyContent: 'center', width: 400, height: 500}}>
+      <Image source={{uri: photo}} style={StyleSheet.absoluteFill} />
+      <View style={{alignItems: 'center'}}>
         <Text style={styles.uploadHeaderStyle}>Upload Picture</Text>
         <TouchableOpacity
           onPress={() => {
@@ -84,10 +85,6 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     borderRadius: 10,
-  },
-  fotito: {
-    flex: 1,
-    resizeMode: 'cover',
   },
 });
 

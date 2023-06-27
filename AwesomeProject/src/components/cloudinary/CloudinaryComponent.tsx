@@ -2,19 +2,27 @@ import React, {useState} from 'react';
 import {
   Alert,
   Image,
-  SafeAreaView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
+  Button,
+  ScrollView,
+  TextInput,
+  Text,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 
+interface Images {
+  link: any;
+  name: string | null;
+}
+
 const CloudinaryComponent: React.FC = () => {
-  const [photo, setPhoto] = useState(
-    'https://res.cloudinary.com/dhgn9tq4j/image/upload/v1666764536/cld-sample-2.jpg',
-  );
-  const cloudinaryUpload = (photo: any) => {
+  const [photos, setPhotos] = useState<string[]>([]);
+  // const [title, setTitle] = useState<string>('');
+
+  let arrayImages = [];
+
+  const cloudinaryUpload = (photo: object) => {
     const data = new FormData();
     data.append('file', photo);
     data.append('upload_preset', 'hjuft8mh');
@@ -26,7 +34,7 @@ const CloudinaryComponent: React.FC = () => {
       .then(res => res.json())
       .then(resData => {
         const uploadedImageUrl = resData.secure_url;
-        setPhoto(uploadedImageUrl);
+        setPhotos([...photos, uploadedImageUrl]);
       })
       .catch(err => {
         console.log('err.response.data', err);
@@ -34,11 +42,11 @@ const CloudinaryComponent: React.FC = () => {
       });
   };
 
-  console.log(photo);
+  console.log(photos);
 
   const handleUploadImage = () => {
     launchImageLibrary({mediaType: 'photo', selectionLimit: 1}, response => {
-      console.log('response', response);
+      // console.log('response', response);
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.errorMessage) {
@@ -57,36 +65,40 @@ const CloudinaryComponent: React.FC = () => {
     });
   };
 
+  console.log(photos);
   return (
-    <SafeAreaView
-      style={{flex: 1, justifyContent: 'center', width: 400, height: 500}}>
-      <View style={{alignItems: 'center'}}>
-        <Text style={styles.uploadHeaderStyle}>Upload Picture</Text>
-        <TouchableOpacity
-          onPress={handleUploadImage}
-          style={styles.openGalaryStyle}>
-          <Image source={{uri: photo}} style={StyleSheet.absoluteFill} />
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <View
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: 400,
+        height: 500,
+      }}>
+      <ScrollView bounces={true}>
+        <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+          {photos.length > 0 &&
+            photos.map((image, index) => {
+              return (
+                <View key={index}>
+                  {/* <TextInput onChange={onChangeTitle} value={title} /> */}
+                  <Image source={{uri: image}} style={styles.openGalaryStyle} />
+                </View>
+              );
+            })}
+        </View>
+      </ScrollView>
+      <Button title="Upload Images" onPress={handleUploadImage} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  uploadHeaderStyle: {
-    fontStyle: 'normal',
-    color: 'white',
-    fontWeight: 'bold',
-    lineHeight: 24,
-    fontSize: 16,
-  },
   openGalaryStyle: {
-    backgroundColor: 'orange',
     margin: 10,
     padding: 10,
     borderRadius: 10,
-    height: 200,
     width: 100,
+    height: 100,
   },
 });
 
